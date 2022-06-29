@@ -1,6 +1,6 @@
 from .route import web
-
+from flask import render_template
 
 @web.route('/')
 def home():
-    return "<h1>Hi</h1>"
+    return render_template("home.html")

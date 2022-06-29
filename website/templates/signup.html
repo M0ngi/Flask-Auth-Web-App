@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+        <!-- Tabs Titles -->
+    
+        <!-- Icon -->
+        <div class="fadeIn first mt-3 mb-5">
+            <svg id="icon" alt="User Icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" fill="none" width="24" height="24"/>
+                <g>
+                    <path d="M21 14v5c0 1.105-.895 2-2 2H5c-1.105 0-2-.895-2-2V5c0-1.105.895-2 2-2h5v2H5v14h14v-5h2z"/>
+                    <path d="M21 7h-4V3h-2v4h-4v2h4v4h2V9h4"/>
+                </g>
+            </svg>
+        </div>
+    
+        <!-- Login Form -->
+        <form method="post" action="/api/auth/signup">
+            <input type="text" id="fname" class="fadeIn second" name="firstName" placeholder="First Name">
+            <input type="text" id="lname" class="fadeIn second" name="lastName" placeholder="Last Name">
+            <input type="text" id="login" class="fadeIn second" name="email" placeholder="Email">
+            <input type="password" id="password" class="fadeIn third" name="login" placeholder="Password">
+            <input type="submit" class="fadeIn fourth" value="Sign up!">
+        </form>
+    
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            Already have an account? <a class="underlineHover" href="/login">Login!</a>
+        </div>
+    
+        </div>
+    </div>
+    <link href="{{ url_for("static", filename="css/login.css") }}" rel="stylesheet" />
+  
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+        <!-- Tabs Titles -->
+    
+        <!-- Icon -->
+        <div class="fadeIn first mt-3 mb-5">
+            <svg id="icon" alt="User Icon" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+              </svg>
+        </div>
+    
+        <!-- Login Form -->
+        <form method="post" action="/api/auth/login">
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Login">
+            <input type="password" id="password" class="fadeIn third" name="login" placeholder="Password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+    
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+            <br>
+            Or
+            <br>
+            <a class="underlineHover" href="/signup">Create an account!</a>
+        </div>
+    
+        </div>
+    </div>
+    <link href="{{ url_for("static", filename="css/login.css") }}" rel="stylesheet" />
+  
+{% endblock content %}
