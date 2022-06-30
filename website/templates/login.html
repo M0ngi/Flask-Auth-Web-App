@@ -16,28 +16,21 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% for message in messages %}
                 {% if message[0] == 'error' %}
-                    <div class="alert alert-danger ml-5 mr-5 mb-3">
+                    <div class="alert alert-danger alert-dismissible ml-5 mr-5 mb-3">
                         <div class="row">
                             <div class="col">
                                 {{ message [1]}}
                             </div>
                         </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 {% endif %}
             {% endfor %}
 
         {% endwith %}
 
-        {% if error %}
-            <div class="alert alert-danger ml-5 mr-5 mb-3">
-                <div class="row">
-                    <div class="col">
-                        {{ error }}
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    
         <!-- Login Form -->
         <form method="post">
             <div class="form-group text-left custom-form-group fadeIn second mt-4">

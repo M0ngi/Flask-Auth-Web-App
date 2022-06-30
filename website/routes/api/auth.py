@@ -14,4 +14,10 @@ def login():
 def signup():
     return make_response(jsonify(error="Work in progress"), 206)
 
+
+@auth.route('logout', methods=['POST'])
+def logout():
+    return make_response(jsonify(error="Work in progress"), 206)
+
+
 api.register_blueprint(auth)

@@ -16,8 +16,37 @@
                 </g>
             </svg>
         </div>
-    
-        <!-- Login Form -->
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for message in messages %}
+                {% if message[0] == 'error' %}
+                    <div class="alert alert-danger alert-dismissible ml-5 mr-5 mb-3">
+                        <div class="row">
+                            <div class="col">
+                                {{ message [1]}}
+                            </div>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% elif message[0] == 'success' %}
+                    <div class="alert alert-success alert-dismissible ml-5 mr-5 mb-3">
+                        <div class="row">
+                            <div class="col">
+                                {{ message [1]}}
+                            </div>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        {% endwith %}
+
+        <!-- Signup Form -->
         <form method="post">
             <div class="form-group text-left custom-form-group fadeIn second">
                 <label for="firstName">Your first name</label>
@@ -27,6 +56,7 @@
                   id="firstName"
                   name="firstName"
                   placeholder="Enter your first name"
+                  value="{{ data['firstname'] if data else '' }}"
                 />
             </div>
             <div class="form-group text-left custom-form-group fadeIn third">
@@ -37,6 +67,7 @@
                   id="lastName"
                   name="lastName"
                   placeholder="Enter your last name"
+                  value="{{ data['lastname'] if data else '' }}"
                 />
             </div>
             <div class="form-group text-left custom-form-group fadeIn fourth">
@@ -47,6 +78,7 @@
                   id="login"
                   name="login"
                   placeholder="Enter your email"
+                  value="{{ data['login'] if data else '' }}"
                 />
             </div>
             <div class="form-group text-left custom-form-group fadeIn fifth">
