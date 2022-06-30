@@ -1,7 +1,6 @@
-from website.utils.api import apiPost
+from website.utils.api import apiPost, respJSON
 from .route import web
 from flask import flash, render_template, request, current_app, url_for, redirect
-import json
 
 
 @web.route('login', methods=['GET', 'POST'])
@@ -16,7 +15,7 @@ def login():
         return render_template('login.html')
 
     try:
-        resp = apiPost(
+        resp, resp_data = apiPost(
             url_for('api.auth.login'),
             {
                 "login": login,
@@ -30,11 +29,6 @@ def login():
     if resp.status_code == 200:
         return redirect(url_for('web.home'))
     
-    try:
-        resp_data = json.loads(resp.content.decode())
-    except Exception:
-        resp_data = {}
-    
     if 'error' not in resp_data:
         resp_data['error'] = 'An unknown error occured.'
     
@@ -45,7 +39,7 @@ def login():
 @web.route('logout', methods=['GET'])
 def logout():
     try:
-        resp = apiPost(
+        resp, resp_data = apiPost(
             url_for('api.auth.logout')
         )
     except Exception:
@@ -53,11 +47,6 @@ def logout():
         return render_template('error.html')
     
     if resp.status_code != 200:
-        try:
-            resp_data = json.loads(resp.content.decode())
-        except Exception:
-            resp_data = {}
-        
         if 'error' not in resp_data:
             resp_data['error'] = 'An unknown error occured.'
         
@@ -117,7 +106,7 @@ def signup():
         )
 
     try:
-        resp = apiPost(
+        resp, resp_data = apiPost(
             url_for('api.auth.login'),
             {
                 "firstname": firstName,
@@ -133,11 +122,6 @@ def signup():
     if resp.status_code == 200:
         flash("Account created successfully", category="success")
         return render_template('signup.html')
-    
-    try:
-        resp_data = json.loads(resp.content.decode())
-    except Exception:
-        resp_data = {}
     
     if 'error' not in resp_data:
         resp_data['error'] = 'An unknown error occured.'
