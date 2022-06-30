@@ -1,4 +1,4 @@
-import requests
+from website.utils.api import apiPost
 from .route import web
 from flask import flash, render_template, request, current_app, url_for, redirect
 import json
@@ -16,13 +16,19 @@ def login():
         return render_template('login.html')
 
     try:
-        resp = requests.post(current_app.config["API_PROXY"]+url_for('api.auth.login'))
+        resp = apiPost(
+            url_for('api.auth.login'),
+            {
+                "login": login,
+                "password": password
+            }
+        )
     except Exception:
         flash("An unknown error occured.", category="error")
         return render_template('login.html')
     
     if resp.status_code == 200:
-        pass
+        return redirect(url_for('web.home'))
     
     try:
         resp_data = json.loads(resp.content.decode())
@@ -39,7 +45,9 @@ def login():
 @web.route('logout', methods=['GET'])
 def logout():
     try:
-        resp = requests.post(current_app.config["API_PROXY"]+url_for('api.auth.logout'))
+        resp = apiPost(
+            url_for('api.auth.logout')
+        )
     except Exception:
         flash("An unknown error occured.", category="error")
         return render_template('error.html')
@@ -109,7 +117,15 @@ def signup():
         )
 
     try:
-        resp = requests.post(current_app.config["API_PROXY"]+url_for('api.auth.login'))
+        resp = apiPost(
+            url_for('api.auth.login'),
+            {
+                "firstname": firstName,
+                "lastname": lastName,
+                "login": login,
+                "password": password
+            }
+        )
     except Exception:
         flash("An unknown error occured.", category="error")
         return render_template('signup.html')
