@@ -1,9 +1,11 @@
 from website.utils.api import apiPost, respJSON
+from website.utils.jwt import token_required
 from .route import web
 from flask import flash, render_template, request, current_app, url_for, redirect
 
 
 @web.route('login', methods=['GET', 'POST'])
+@token_required(required=False)
 def login():
     if request.method == 'GET':
         return render_template('login.html')
@@ -27,7 +29,10 @@ def login():
         return render_template('login.html')
     
     if resp.status_code == 200:
-        return redirect(url_for('web.home'))
+        # print(resp_data)
+        http_resp = redirect(url_for('web.home'))
+        http_resp.set_cookie("auth", resp_data['result']['token'])
+        return http_resp
     
     if 'error' not in resp_data:
         resp_data['error'] = 'An unknown error occured.'
@@ -57,6 +62,7 @@ def logout():
 
 
 @web.route('signup', methods=['GET', 'POST'])
+@token_required(required=False)
 def signup():
     if request.method == 'GET':
         return render_template('signup.html')
@@ -107,7 +113,7 @@ def signup():
 
     try:
         resp, resp_data = apiPost(
-            url_for('api.auth.login'),
+            url_for('api.auth.signup'),
             {
                 "firstname": firstName,
                 "lastname": lastName,
