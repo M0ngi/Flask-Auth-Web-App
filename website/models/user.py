@@ -8,3 +8,4 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(256))
     firstName = db.Column(db.String(150))
     lastName = db.Column(db.String(150))
+    role = db.Column(db.Integer, db.ForeignKey('role.id'))

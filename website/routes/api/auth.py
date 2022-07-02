@@ -25,7 +25,7 @@ def login():
     return error_response(error="Invalid email/password.", code=401)
 
 
-@auth.route('/signup', methods=['POST'])
+@auth.route('signup', methods=['POST'])
 def signup():
     data = request.json
     if 'firstname' not in data or 'lastname' not in data or 'login' not in data or 'password' not in data:

@@ -17,7 +17,7 @@ def createApp():
     app.register_blueprint(web, url_prefix='/')
     app.register_blueprint(api, url_prefix='/api/')
 
-    from .models import Log, User
+    from .models import Log, User, Role
 
     createDb(app)
     return app
@@ -26,6 +26,15 @@ def createApp():
 def createDb(app):
     if not os.path.exists('website/'+DB_NAME):
         db.create_all(app=app)
+
+        from website.const.init_roles import DEFAULT_ROLES
+        from .models import Role
+
+        for role in DEFAULT_ROLES:
+            r = Role(title=role['title'])
+            db.session.add(r)
+        
+        db.session.commit()
 
 
 db = SQLAlchemy()
