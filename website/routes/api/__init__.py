@@ -1,2 +1,2 @@
 from .route import api
-from . import auth
+from . import auth, admin

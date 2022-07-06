@@ -17,6 +17,9 @@ def token_required(required=True):
         
         @wraps(f)
         def decorator(*args, **kwargs):
+            if not request.cookies:
+                return notAuthorized()
+            
             token = None
             if 'auth' in request.cookies:
                 token = request.cookies.get('auth')
@@ -39,6 +42,9 @@ def api_token_required(f):
     
     @wraps(f)
     def decorator(*args, **kwargs):
+        if not request.json:
+            return notAuthorized()
+        
         token = None
         if 'auth' in request.json:
             token = request.json['auth']
