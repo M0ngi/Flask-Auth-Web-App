@@ -18,7 +18,7 @@ def login():
         return error_response(error="Fields are missing", code=400)
     
     user = findOneByEmail(data['login'])
-    if check_password_hash(user.password, data['password']):
+    if user and check_password_hash(user.password, data['password']):
         token = createToken(user)
 
         return valid_response(result={"token": token}, code=200)

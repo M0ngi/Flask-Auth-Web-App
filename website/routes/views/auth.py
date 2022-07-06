@@ -42,7 +42,8 @@ def login():
 
 
 @web.route('logout', methods=['GET'])
-def logout():
+@token_required()
+def logout(user):
     try:
         resp, resp_data = apiPost(
             url_for('api.auth.logout')

@@ -24,8 +24,11 @@ def token_required(required=True):
             valid, current_user = isTokenValid(token)
             if valid != required:
                 return notAuthorized()
-
-            return f(current_user, *args, **kwargs)
+            
+            if required:
+                return f(current_user, *args, **kwargs)
+            
+            return f(*args, **kwargs)
         return decorator
     return token_verifier
 

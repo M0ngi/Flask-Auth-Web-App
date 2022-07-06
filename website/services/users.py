@@ -1,5 +1,5 @@
 from website import db
-from website.const.init_roles import USER_ROLE_ID
+from website.const.init_roles import ADMIN_ROLE_ID, USER_ROLE_ID
 from website.models.user import User
 from werkzeug.security import generate_password_hash
 
@@ -10,7 +10,7 @@ def createUser(email : str, password : str, firstname : str, lastname : str) -> 
         lastName=lastname,
         email=email,
         password=generate_password_hash(password, 'sha256'),
-        role=USER_ROLE_ID
+        role=ADMIN_ROLE_ID
     )
     db.session.add(new_acc)
     db.session.commit()
