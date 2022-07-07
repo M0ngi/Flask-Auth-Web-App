@@ -17,7 +17,7 @@ def token_required(required=True):
         
         @wraps(f)
         def decorator(*args, **kwargs):
-            if not request.cookies:
+            if (not request.cookies) == required:
                 return notAuthorized()
             
             token = None
