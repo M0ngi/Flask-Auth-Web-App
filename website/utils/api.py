@@ -3,9 +3,11 @@ from flask import current_app
 from requests import post, get, Response
 
 
-def apiGet(route : str, params : dict = {}) -> tuple[Response, dict]:
+def apiGet(route : str, data : dict = {}, params : dict = {}) -> tuple[Response, dict]:
     resp = get(
-        current_app.config["API_PROXY"] + route, 
+        current_app.config["API_PROXY"] + route,
+        headers={'Content-type': 'application/json', 'Accept': 'text/plain'},
+        data=json.dumps(data),
         params=params
     )
     return resp, respJSON(resp)
