@@ -10,7 +10,7 @@ def createUser(email : str, password : str, firstname : str, lastname : str) -> 
         lastName=lastname,
         email=email,
         password=generate_password_hash(password, 'sha256'),
-        role=ADMIN_ROLE_ID
+        role=USER_ROLE_ID
     )
     db.session.add(new_acc)
     db.session.commit()
@@ -29,3 +29,21 @@ def findOne(id : int) -> User or None:
         return User.query.filter_by(id=id).first() 
     except:
         return None
+
+
+def findAll() -> list[User]:
+    try:
+        return User.query.all()
+    except:
+        return []
+
+
+def userToJSON(user : User) -> dict:
+    return {
+        "id": user.id,
+        "email": user.email,
+        "password": user.password,
+        "firstname": user.firstName,
+        "lastname": user.lastName,
+        "role": user.role
+    }
