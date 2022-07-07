@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 def createApp():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "hard code for debug" # os.getrandom(25)
+    app.config['SECRET_KEY'] = os.getrandom(25)
     app.config['API_PROXY'] = "http://0.0.0.0:5000/"
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
