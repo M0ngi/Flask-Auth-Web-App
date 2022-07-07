@@ -27,14 +27,15 @@ def createDb(app):
     if not os.path.exists('website/'+DB_NAME):
         db.create_all(app=app)
 
-        from website.const.init_roles import DEFAULT_ROLES
-        from .models import Role
+        with app.app_context():
+            from website.const.init_roles import DEFAULT_ROLES
+            from .models import Role
 
-        for role in DEFAULT_ROLES:
-            r = Role(title=role['title'])
-            db.session.add(r)
-        
-        db.session.commit()
+            for role in DEFAULT_ROLES:
+                r = Role(title=role['title'])
+                db.session.add(r)
+            
+            db.session.commit()
 
 
 db = SQLAlchemy()
